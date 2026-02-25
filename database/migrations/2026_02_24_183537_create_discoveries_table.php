@@ -13,11 +13,20 @@ return new class extends Migration
     {
         Schema::create('discovery_assesments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->text('personality_result')->nullable();
+            $table->text('strengths_result')->nullable();
+            $table->text('values_result')->nullable();
+            $table->json('skills_score');
             $table->timestamps();
         });
 
         Schema::create('discovery_career_roadmaps', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->json('recommended_careers');
+            $table->json('recommended_majors')->nullable();
+            $table->text('roadmap_summary');
             $table->timestamps();
         });
     }

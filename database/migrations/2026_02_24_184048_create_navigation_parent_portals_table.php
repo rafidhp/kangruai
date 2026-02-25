@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('navigation_parent_portals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('restrict');
+            $table->foreignId('parent_user_id')->constrained('users')->onDelete('restrict');
+            $table->text('discussion_notes')->nullable();
+            $table->enum('status', [
+                'ALIGNED',
+                'NEEDS DISCUSSION',
+                'CONFLICT',
+            ])->nullable();
             $table->timestamps();
         });
     }

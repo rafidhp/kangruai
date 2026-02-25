@@ -13,11 +13,27 @@ return new class extends Migration
     {
         Schema::create('chat_conversations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->enum('phase', [
+                'DISCOVERY',
+                'NAVIGATION',
+                'ADAPTATION',
+            ])->default('DISCOVERY');
+            $table->string('title');
+            $table->boolean('is_active')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
         
         Schema::create('chat_messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('conversation_id')->constrained('chat_conversations')->onDelete('cascade');
+            $table->enum('sender', [
+                'USER',
+                'AI'
+            ]);
+            $table->longText('message');
+            $table->json('metadata')->nullable();
             $table->timestamps();
         });
     }
