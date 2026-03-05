@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('previous_roadmap_id')->constrained('discovery_career_roadmaps');
             $table->json('updated_recommendations')->nullable();
             $table->text('updated_reason')->nullable();
+            $table->text('updated_roadmap_summary')->nullable();
             $table->timestamps();
         });
 

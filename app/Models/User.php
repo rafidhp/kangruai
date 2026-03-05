@@ -9,6 +9,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
+use App\Models\Adaptation\AdaptationRoadmapUpdate;
+use App\Models\Adaptation\AdaptationActiveRoadmap;
+use App\Models\Adaptation\AdaptationExperienceRecommendation;
+use App\Models\Chat\ChatConversation;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -54,7 +59,40 @@ class User extends Authenticatable
         ];
     }
 
-    public function user() {
-        return $this->hasOne(User::class);
+    public function userProfile() {
+        return $this->hasOne(userProfile::class);
+    }
+
+    public function discoveryAssesment() {
+        return $this->hasOne(DiscoveryAssesment::class);
+    }
+
+    public function discoveryCareerRoadmap() {
+        return $this->hasOne(DiscoveryCareerRoadmap::class);
+    }
+
+    public function adaptationRoadmapUpdate() {
+        return $this->hasMany(AdaptationRoadmapUpdate::class, 'user_id');
+    }
+
+    public function adaptationActiveRoadmap() {
+        return $this->hasMany(AdaptationActiveRoadmap::class);
+    }
+
+    public function adaptationExperienceRecommendation() {
+        return $this->hasOne(AdaptationExperienceRecommendation::class);
+    }
+
+    public function parentPortal() {
+        return $this->hasOne(NavigationParentPortal::class, 'user_id');
+    }
+
+    public function childrenPortal() {
+        return $this->hasMany(NavigationParentPortal::class, 'parent_user_id');
+    }
+
+    // chats
+    public function chatConversation() {
+        return $this->hasMany(ChatConversation::class, 'user_id');
     }
 }
