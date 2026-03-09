@@ -1,6 +1,5 @@
 import { Head } from '@inertiajs/react';
 
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
@@ -13,23 +12,99 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
+    const progress = 35
+    const radius = 90
+    const circumference = 2 * Math.PI * radius
+    const offset = circumference - (progress / 100) * circumference
+    
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
+                {/* Header */}
+                <div>
+                    <h1 className="text-3xl font-bold">
+                        Welcome back, test 👋
+                    </h1>
+                    <div className="flex items-center gap-3 mt-2">
+                        <span className="px-3 py-1 text-sm rounded-full bg-gray-100 text-gray-700">
+                            🎓 smp
+                        </span>
+                        <span className="px-3 py-1 text-sm rounded-full bg-purple-100 text-gray-700">
+                            🎯 Target 2045
+                        </span>
                     </div>
                 </div>
-                <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                    <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+
+                {/* Card */}
+                <div className="dark:bg-stone-600 bg-[#f1f3f3] rounded-2xl shadow-sm p-10 flex flex-col items-center">
+                    {/* Progress Circle */}
+                    <div className="relative w-56 h-56">
+                        <svg className="w-full h-full -rotate-90">
+                            {/* background */}
+                            <circle
+                                cx="112"
+                                cy="112"
+                                r={radius}
+                                strokeWidth="14"
+                                className="dark:stroke-gray-100 stroke-white"
+                                fill="transparent"
+                            />
+                            {/* progress */}
+                            <circle
+                                cx="112"
+                                cy="112"
+                                r={radius}
+                                strokeWidth="14"
+                                className="stroke-purple-400"
+                                fill="transparent"
+                                strokeDasharray={circumference}
+                                strokeDashoffset={offset}
+                                strokeLinecap="round"
+                            />
+                        </svg>
+                        {/* Text center */}
+                        <div className="absolute inset-0 flex flex-col items-center justify-center">
+                            <span className="text-4xl font-bold">
+                                {progress}%
+                            </span>
+                            <span className="dark:text-gray-100 text-gray-900 text-sm">
+                                Exploring
+                            </span>
+                        </div>
+                    </div>
+                    {/* Title */}
+                    <div className="text-center mt-6">
+                        <h3 className="font-semibold text-lg">
+                            Career Clarity Score
+                        </h3>
+                        <p className="dark:text-gray-100 text-gray-900 text-sm">
+                            Updated based on your activities
+                        </p>
+                    </div>
+                </div>
+
+                {/* AI Reflection Card */}
+                <div className="dark:bg-stone-600 bg-[#f1f3f3] rounded-2xl shadow-sm p-6 flex gap-4 items-start">
+                    {/* Icon */}
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-gray-100 bg-white text-white text-lg">
+                        ⚖️
+                    </div>
+                    {/* Content */}
+                    <div className="flex flex-col gap-1">
+                        <div className="flex flex-col">
+                            <span className="dark:text-gray-100 text-gray-900 font-semibold">
+                                AI Reflection
+                            </span>
+                            <span className="dark:text-gray-100 text-gray-900 text-sm">
+                                Daily prompt from your mentor
+                            </span>
+                        </div>
+                        <p className="dark:text-gray-100 text-gray-900 italic mt-2 leading-relaxed">
+                            "If you could solve one real-world problem with technology,
+                            what would it be and why? Think about the skills you'd need to learn."
+                        </p>
+                    </div>
                 </div>
             </div>
         </AppLayout>
