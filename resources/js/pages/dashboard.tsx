@@ -21,7 +21,7 @@ export default function Dashboard() {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
-                {/* Header */}
+                {/* header */}
                 <div>
                     <h1 className="text-3xl font-bold">
                         Welcome back, test 👋
@@ -36,9 +36,9 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* Card */}
+                {/* card */}
                 <div className="dark:bg-stone-600 bg-[#f1f3f3] rounded-2xl shadow-sm p-10 flex flex-col items-center">
-                    {/* Progress Circle */}
+                    {/* progress circle */}
                     <div className="relative w-56 h-56">
                         <svg className="w-full h-full -rotate-90">
                             {/* background */}
@@ -63,7 +63,7 @@ export default function Dashboard() {
                                 strokeLinecap="round"
                             />
                         </svg>
-                        {/* Text center */}
+                        {/* text center */}
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <span className="text-4xl font-bold">
                                 {progress}%
@@ -73,7 +73,7 @@ export default function Dashboard() {
                             </span>
                         </div>
                     </div>
-                    {/* Title */}
+                    {/* title */}
                     <div className="text-center mt-6">
                         <h3 className="font-semibold text-lg">
                             Career Clarity Score
@@ -84,13 +84,12 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                {/* AI Reflection Card */}
+                {/* AI reflection card */}
                 <div className="dark:bg-stone-600 bg-[#f1f3f3] rounded-2xl shadow-sm p-6 flex gap-4 items-start">
-                    {/* Icon */}
                     <div className="flex items-center justify-center w-10 h-10 rounded-full dark:bg-gray-100 bg-white text-white text-lg">
                         ⚖️
                     </div>
-                    {/* Content */}
+                    {/* content */}
                     <div className="flex flex-col gap-1">
                         <div className="flex flex-col">
                             <span className="dark:text-gray-100 text-gray-900 font-semibold">

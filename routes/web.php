@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdaptationController;
+use App\Http\Controllers\BridgeController;
+use App\Http\Controllers\ChatController;
+use App\Http\Controllers\DiscoveryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -15,9 +19,30 @@ Route::get('/', function() {
 // })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    // dashboard route
     Route::get('dashboard', function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
+
+    // discovery routes
+    Route::controller(DiscoveryController::class)->group(function () {
+        Route::get('/discovery', 'index')->name('discovery');
+    });
+    
+    // real-talk routes
+    Route::controller(ChatController::class)->group(function () {
+        Route::get('/real-talk', 'index')->name('chat');
+    });
+
+    // adaptation routes
+    Route::controller(AdaptationController::class)->group(function () {
+        Route::get('/adaptation', 'index')->name('adaptation');
+    });
+
+    // bridge routes
+    Route::controller(BridgeController::class)->group(function () {
+        Route::get('/bridge', 'index')->name('bridge');
+    });
 });
 
 require __DIR__.'/settings.php';
