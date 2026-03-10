@@ -1,5 +1,6 @@
 import { Head } from '@inertiajs/react';
 
+import { useAuth } from '@/hooks/use-auth';
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
 import type { BreadcrumbItem } from '@/types';
@@ -12,6 +13,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 export default function Dashboard() {
+    const user = useAuth()
     const progress = 35
     const radius = 90
     const circumference = 2 * Math.PI * radius
@@ -22,9 +24,9 @@ export default function Dashboard() {
             <Head title="Dashboard" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto p-4">
                 {/* header */}
-                <div>
+                <div className="flex flex-col align-items-center gap-2">
                     <h1 className="text-3xl font-bold">
-                        Welcome back, test 👋
+                        Welcome back, {user.name} 👋
                     </h1>
                     <div className="flex items-center gap-3 mt-2">
                         <span className="px-3 py-1 text-sm rounded-full bg-gray-100 text-gray-700">

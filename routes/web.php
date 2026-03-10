@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdaptationController;
 use App\Http\Controllers\BridgeController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DiscoveryController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,9 +21,7 @@ Route::get('/', function() {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // dashboard route
-    Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // discovery routes
     Route::controller(DiscoveryController::class)->group(function () {
