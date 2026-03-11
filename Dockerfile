@@ -3,9 +3,9 @@ FROM php:8.3-cli-alpine AS frontend-builder
 
 # Install Node.js, npm, and PHP extension dependencies
 RUN apk add --no-cache nodejs npm \
-    libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev \
+    libpng-dev libjpeg-turbo-dev freetype-dev libzip-dev oniguruma-dev icu-dev libxml2-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install gd zip
+    && docker-php-ext-install gd zip mbstring bcmath intl pdo pdo_mysql fileinfo xml
 
 WORKDIR /app
 
@@ -47,7 +47,7 @@ RUN apk add --no-cache \
 # Install PHP extensions
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
-    pdo_sqlite \
+    pdo_mysql \
     gd \
     mbstring \
     zip \
