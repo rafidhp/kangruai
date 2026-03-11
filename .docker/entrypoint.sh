@@ -52,4 +52,4 @@ php artisan storage:link || true
 
 echo "🔥 Starting Supervisor..."
 
-exec /usr/bin/supervisord -c /etc/supervisor.d/app.ini
+exec /usr/bin/supervisord -c /etc/supervisord.conf
