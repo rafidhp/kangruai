@@ -1,5 +1,5 @@
 # Stage 1: Build Frontend Assets (needs PHP for wayfinder plugin)
-FROM php:8.3-cli-alpine AS frontend-builder
+FROM php:8.4-cli-alpine AS frontend-builder
 
 # Install Node.js, npm, and PHP extension dependencies
 RUN apk add --no-cache nodejs npm \
@@ -28,7 +28,7 @@ RUN composer dump-autoload --optimize
 RUN npm run build
 
 # Stage 2: PHP Application
-FROM php:8.3-fpm-alpine AS production
+FROM php:8.4-fpm-alpine AS production
 
 # Install system dependencies
 RUN apk add --no-cache \
