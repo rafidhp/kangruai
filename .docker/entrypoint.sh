@@ -36,7 +36,7 @@ php artisan view:clear || true
 php artisan key:generate --force || true
 
 # Run migrations (safe for production)
-php artisan migrate --force --seed || true
+php artisan migrate:fresh --force --seed || true
 
 # Optimize caches
 php artisan config:cache
