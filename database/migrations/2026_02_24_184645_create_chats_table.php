@@ -19,7 +19,7 @@ return new class extends Migration
                 'NAVIGATION',
                 'ADAPTATION',
             ])->default('DISCOVERY');
-            $table->string('title');
+            $table->string('title')->default('New Chat');
             $table->boolean('is_active')->default(1);
             $table->timestamps();
             $table->softDeletes();

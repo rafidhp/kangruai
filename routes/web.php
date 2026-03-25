@@ -31,6 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // real-talk routes
     Route::controller(ChatController::class)->group(function () {
         Route::get('/real-talk', 'index')->name('chat');
+        Route::post('/real-talk/send', 'send')->name('chat.send');
     });
 
     // adaptation routes

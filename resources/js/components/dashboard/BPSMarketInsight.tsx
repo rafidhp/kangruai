@@ -11,7 +11,7 @@ export function BPSMarketInsight() {
         >
             <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-2xl bg-warning/15 flex items-center justify-center">
-                    <AlertTriangle className="w-5 h-5 text-warning" />
+                    <AlertTriangle className="w-5 h-5 text-amber-300" />
                 </div>
                 <div>
                     <h3 className="font-display font-semibold text-foreground">
