@@ -1,7 +1,11 @@
 import axios from "axios";
 import { Send, Bot, User } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
-// import { usePage } from '@inertiajs/react';
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
+
+import { useAuth } from "@/hooks/use-auth";
 
 type ChatMessage = {
     sender: "user" | "ai";
@@ -20,6 +24,7 @@ export default function ChatBox() {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const bottomRef = useRef<HTMLDivElement | null>(null);
+    const user = useAuth();
 
     // auto scroll
     useEffect(() => {
@@ -76,7 +81,7 @@ export default function ChatBox() {
     };
 
     return (
-        <div className="flex flex-col flex-1 rounded-2xl border bg-background overflow-hidden">
+        <div className="flex flex-col h-full rounded-2xl border bg-background overflow-hidden">
             {/* suggestions */}
             <div className="flex flex-wrap gap-2 border-b p-4">
                 {suggestions.map((item) => (
@@ -91,14 +96,14 @@ export default function ChatBox() {
             </div>
 
             {/* chat box */}
-            <div className="flex flex-1 flex-col gap-4 p-6 overflow-y-auto">
+            <div className="flex-1 min-h-0 overflow-y-auto p-6 flex flex-col gap-4 [scrollbar-gutter:stable]">
                 {messages.length === 0 && (
                     <div className="flex gap-3">
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white dark:text-zinc-950">
                             <Bot className="h-5 w-5" />
                         </div>
                         <div className="max-w-lg rounded-2xl bg-muted p-4 text-sm leading-relaxed">
-                            Hi Andi 👋 I'm your AI career navigator. Ask me anything about your future path!
+                            Hi {user.name} 👋 I'm your AI career navigator. Ask me anything about your future path!
                         </div>
                     </div>
                 )}
@@ -117,13 +122,40 @@ export default function ChatBox() {
                             </div>
                         )}
                         <div
-                            className={`max-w-lg rounded-2xl p-4 text-sm leading-relaxed ${
-                                msg.sender === "user"
+                            className={`max-w-lg
+                                        rounded-2xl
+                                        p-4
+                                        text-sm
+                                        leading-relaxed
+                                        overflow-hidden
+                                        break-words
+                                        whitespace-pre-wrap
+                                    ${msg.sender === "user"
                                     ? "bg-primary text-white dark:text-black"
                                     : "bg-muted"
                             }`}
                         >
-                            {msg.text}
+                            {msg.sender === "ai" ? (
+                                <div className="prose prose-sm dark:prose-invert max-w-none break-words">
+                                    <ReactMarkdown
+                                        remarkPlugins={[remarkGfm]}
+                                        rehypePlugins={[rehypeHighlight]}
+                                        components={{
+                                            code({ children }) {
+                                                return (
+                                                    <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-3 text-xs">
+                                                        <code>{children}</code>
+                                                    </pre>
+                                                );
+                                            },
+                                        }}
+                                    >
+                                        {msg.text}
+                                    </ReactMarkdown>
+                                </div>
+                            ) : (
+                                msg.text
+                            )}
                         </div>
                         {msg.sender === "user" && (
                             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-200">

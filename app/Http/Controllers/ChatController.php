@@ -24,11 +24,17 @@ class ChatController extends Controller
         ]);
 
         $user = Auth::user();
-        $conversation = ChatConversation::firstOrCreate([
-            'user_id' => $user->id,
-            'title' => 'test',
-            'is_active' => true,
-        ]);
+        $conversation = ChatConversation::where('user_id', $user->id)
+            ->where('is_active', true)
+            ->first();
+
+        if (!$conversation) {
+            $conversation = ChatConversation::create([
+                'user_id' => $user->id,
+                'title' => 'New Chat',
+                'is_active' => true,
+            ]);
+        }
 
         ChatMessage::create([
             'conversation_id' => $conversation->id,
