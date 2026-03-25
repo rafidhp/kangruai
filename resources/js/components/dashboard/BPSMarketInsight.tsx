@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { AlertTriangle, TrendingDown, Users, ArrowRight } from "lucide-react";
+import { AlertTriangle, TrendingDown, ArrowRight } from "lucide-react";
 
 export function BPSMarketInsight() {
     return (

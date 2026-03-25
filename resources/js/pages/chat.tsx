@@ -1,9 +1,9 @@
 import { Head } from "@inertiajs/react";
 
+import ChatBox from "@/components/chat/ChatBox";
 import AppLayout from '@/layouts/app-layout';
 import { chat } from "@/routes";
 import type { BreadcrumbItem } from "@/types";
-import ChatBox from "@/components/chat/ChatBox";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

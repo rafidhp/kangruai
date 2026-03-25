@@ -1,17 +1,16 @@
-import appLayout from "@/layouts/app-layout";
 import { Head } from "@inertiajs/react";
-import { dashboard } from "@/routes";
-import type { BreadcrumbItem } from "@/types";
-
 import { motion } from "framer-motion";
+import { GraduationCap, Target } from "lucide-react";
+
+import { ActionItems } from "@/components/dashboard/ActionItems";
+import { AIReflectionCard } from "@/components/dashboard/AIReflectionCard";
+import { BPSMarketInsight } from "@/components/dashboard/BPSMarketInsight";
 import { ClarityGauge } from "@/components/dashboard/ClarityGauge";
 import { RoadmapTimeline } from "@/components/dashboard/RoadmapTimeline";
-import { AIReflectionCard } from "@/components/dashboard/AIReflectionCard";
 import { useAuth } from "@/hooks/use-auth";
-import { GraduationCap, Target } from "lucide-react";
 import AppLayout from "@/layouts/app-layout";
-import { BPSMarketInsight } from "@/components/dashboard/BPSMarketInsight";
-import { ActionItems } from "@/components/dashboard/ActionItems";
+import { dashboard } from "@/routes";
+import type { BreadcrumbItem } from "@/types";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {

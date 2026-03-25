@@ -1,6 +1,6 @@
+import axios from "axios";
 import { Send, Bot, User } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
-import axios from "axios";
 // import { usePage } from '@inertiajs/react';
 
 type ChatMessage = {

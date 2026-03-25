@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
 import {
     CheckCircle2,
     Circle,
@@ -9,7 +8,9 @@ import {
     Briefcase,
     Sparkles,
 } from "lucide-react";
+import { useState } from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const iconMap: Record<string, any> = {
     clipboard: CheckCircle2,
     play: Play,
