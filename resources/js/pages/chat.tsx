@@ -16,7 +16,7 @@ export default function Chat() {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Real Talk" />
-            <div className="flex flex-col gap-4 p-4 h-[calc(100vh-120px)]">
+            <div className="flex flex-col gap-4 p-4 h-[calc(100vh-80px)]">
                 {/* header */}
                 <div className="flex flex-col align-items-center gap-2">
                     <h1 className="text-3xl font-bold">
