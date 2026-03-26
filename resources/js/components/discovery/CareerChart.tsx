@@ -19,13 +19,35 @@ ChartJS.register(
     Legend
 );
 
-export default function CareerChart() {
+interface CareerDNA {
+    logic: number;
+    empathy: number;
+    creativity: number;
+    leadership: number;
+    technical: number;
+    communication: number;
+}
+
+interface CareerChartProps {
+    dna: CareerDNA;
+}
+
+export default function CareerChart({
+    dna
+}: CareerChartProps) {
     const data = {
         labels: ["Logic", "Empathy", "Creativity", "Leadership", "Technical", "Communication"],
         datasets: [
             {
                 label: "Career DNA",
-                data: [65, 40, 50, 90, 70, 75],
+                data: [
+                    dna.logic,
+                    dna.empathy,
+                    dna.creativity,
+                    dna.leadership,
+                    dna.technical,
+                    dna.communication
+                ],
                 backgroundColor: "rgba(139, 92, 246, 0.25)",
                 borderColor: "rgba(139, 92, 246, 0.9)",
                 borderWidth: 2,

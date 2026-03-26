@@ -1,8 +1,9 @@
 import { Head } from "@inertiajs/react";
 import { motion } from "framer-motion";
-
+import { useState } from "react";
 
 import CareerChart from "@/components/discovery/CareerChart";
+import { DiscoveryAssessment } from "@/components/discovery/DiscoveryAssesment";
 import IndustriesCard from "@/components/discovery/IndustriesCard";
 import SkillGap from "@/components/discovery/SkillGap";
 import ValuesAssesment from "@/components/discovery/ValuesAssesment";
@@ -17,7 +18,39 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ]
 
+interface CareerDNA {
+    logic: number;
+    empathy: number;
+    creativity: number;
+    leadership: number;
+    technical: number;
+    communication: number;
+}
+
 export default function Discovery() {
+    const [quizOpen, setQuizOpen] = useState(false);
+    const [dna, setDna] = useState<CareerDNA>({
+        logic: 30,
+        empathy: 30,
+        creativity: 30,
+        leadership: 30,
+        technical: 30,
+        communication: 30
+    });
+    const [assessmentDone, setAssessmentDone] = useState(false);
+
+    const handleQuizComplete = (newDna: Record<string, number>) => {
+        setDna({
+            logic: newDna.logic ?? 30,
+            empathy: newDna.empathy ?? 30,
+            creativity: newDna.creativity ?? 30,
+            leadership: newDna.leadership ?? 30,
+            technical: newDna.technical ?? 30,
+            communication: newDna.communication ?? 30,
+        });
+        setAssessmentDone(true);
+    };
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Discovery Center" />
@@ -38,10 +71,13 @@ export default function Discovery() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* values assessment */}
-                    <ValuesAssesment />
+                    <ValuesAssesment
+                        onStartAssessment={() => setQuizOpen(true)}
+                        assessmentDone={assessmentDone}
+                    />
 
                     {/* career dna */}
-                    <CareerChart />
+                    <CareerChart dna={dna} />
                 </div>
 
                 {/* industries card */}
@@ -49,6 +85,13 @@ export default function Discovery() {
 
                 {/* skill gap */}
                 <SkillGap />
+
+                {/* discovery assesment */}
+                <DiscoveryAssessment
+                    open={quizOpen}
+                    onClose={() => setQuizOpen(false)}
+                    onComplete={handleQuizComplete}
+                />
             </div>
         </AppLayout>
     )

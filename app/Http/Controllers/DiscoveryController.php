@@ -13,4 +13,8 @@ class DiscoveryController extends Controller
             'discovery'
         );
     }
+
+    public function discoveryAssesment(Request $request) {
+
+    }
 }

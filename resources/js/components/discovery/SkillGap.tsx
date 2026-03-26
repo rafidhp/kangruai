@@ -38,6 +38,7 @@ export default function SkillGap() {
                                 transition={{ duration: 0.8, delay: 0.3 }}
                                 className="absolute inset-y-0 left-0 rounded-full bg-violet-400"
                             />
+                            {/* mark */}
                             {/* <div
                                 className="absolute inset-y-0 left-0 rounded-full border-r-2 border-dashed border-primary"
                                 style={{ width: `${item.target}%` }}

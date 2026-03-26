@@ -26,6 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // discovery routes
     Route::controller(DiscoveryController::class)->group(function () {
         Route::get('/discovery', 'index')->name('discovery');
+        Route::post('/discovery/assesment', 'discoveryAssesment')->name('discovery.assesment');
     });
     
     // real-talk routes
