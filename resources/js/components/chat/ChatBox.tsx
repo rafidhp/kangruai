@@ -24,7 +24,7 @@ export default function ChatBox() {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const bottomRef = useRef<HTMLDivElement | null>(null);
-    const user = useAuth();
+    const { user } = useAuth();
 
     // auto scroll
     useEffect(() => {
@@ -103,7 +103,7 @@ export default function ChatBox() {
                             <Bot className="h-5 w-5" />
                         </div>
                         <div className="max-w-lg rounded-2xl bg-muted p-4 text-sm leading-relaxed">
-                            Hi {user.name} 👋 I'm your AI career navigator. Ask me anything about your future path!
+                            Hi {user?.name} 👋 I'm your AI career navigator. Ask me anything about your future path!
                         </div>
                     </div>
                 )}

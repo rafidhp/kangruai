@@ -55,7 +55,7 @@ export default function ValuesAssesment({
                     )}
                     <button
                         onClick={onStartAssessment}
-                        className="w-full py-3 rounded-2xl gradient-primary text-secondary-foreground font-semibold text-sm hover:shadow-glow transition-shadow"
+                        className="w-full py-3 rounded-2xl gradient-primary text-secondary-foreground font-semibold text-sm hover:text-violet-400 hover:cursor-pointer transition-shadow"
                     >
                         Start Assessment
                     </button>

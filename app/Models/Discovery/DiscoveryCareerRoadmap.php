@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Discovery;
 
+use Illuminate\Database\Eloquent\Model;
+
+use App\Models\User;
 use App\Models\Adaptation\AdaptationActiveRoadmap;
 use App\Models\Adaptation\AdaptationRoadmapUpdate;
-use Illuminate\Database\Eloquent\Model;
 
 class DiscoveryCareerRoadmap extends Model
 {
@@ -14,6 +16,10 @@ class DiscoveryCareerRoadmap extends Model
         'recommended_careers',
         'recommended_majors',
         'roadmap_summary',
+    ];
+    protected $casts = [
+        'recommended_careers' => 'array',
+        'recommended_majors' => 'array',
     ];
 
     public function user() {

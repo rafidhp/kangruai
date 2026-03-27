@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Discovery;
 
 use Illuminate\Database\Eloquent\Model;
+
+use App\Models\User;
 
 class DiscoveryAssesment extends Model
 {
@@ -13,6 +15,9 @@ class DiscoveryAssesment extends Model
         'strengths_result',
         'values_result',
         'skills_score',
+    ];
+    protected $casts = [
+        'skills_score' => 'array',
     ];
 
     public function user() {

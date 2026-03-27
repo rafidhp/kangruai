@@ -20,12 +20,12 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function Dashboard() {
-    const profile = useAuth();
+    const { user } = useAuth();
     const clarityScore = 35;
 
-    const userName = profile.name || "Student";
-    const schoolName = profile.school || "Your School";
-    const assessmentDone = profile?.assessment_completed ?? false;
+    const userName = user?.name || "Student";
+    const schoolName = user?.school || "Your School";
+    const assessmentDone = user?.assessment_completed ?? false;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

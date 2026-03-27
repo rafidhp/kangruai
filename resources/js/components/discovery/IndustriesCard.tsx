@@ -21,9 +21,9 @@ export default function IndustriesCard() {
         { name: "Education Tech", growth: "Very High", icon: Users, match: 91 },
     ];
 
-    const profile = useAuth();
+    const { user } = useAuth();
     // true temporary
-    const assessmentDone = profile?.assessment_completed ?? true;
+    const assessmentDone = user?.assessment_completed ?? true;
 
     return (
         <motion.div
