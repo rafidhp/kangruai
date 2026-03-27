@@ -54,6 +54,25 @@ export default function Profile({
                         {({ processing, recentlySuccessful, errors }) => (
                             <>
                                 <div className="grid gap-2">
+                                    <Label htmlFor="username">Username</Label>
+
+                                    <Input
+                                        id="username"
+                                        className="mt-1 block w-full"
+                                        defaultValue={auth.user.username}
+                                        name="username"
+                                        required
+                                        autoComplete="username"
+                                        placeholder="Full name"
+                                    />
+
+                                    <InputError
+                                        className="mt-2"
+                                        message={errors.username}
+                                    />
+                                </div>
+
+                                <div className="grid gap-2">
                                     <Label htmlFor="name">Name</Label>
 
                                     <Input

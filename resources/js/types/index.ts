@@ -5,6 +5,7 @@ export type * from './ui';
 import type { Auth } from './auth';
 
 export type SharedData = {
+    username: string;
     name: string;
     auth: Auth;
     sidebarOpen: boolean;
