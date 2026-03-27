@@ -1,4 +1,6 @@
+import type { PageProps } from "@inertiajs/core";
 import { Head } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -27,29 +29,27 @@ interface CareerDNA {
     communication: number;
 }
 
+interface DiscoveryAssesmentData {
+    skills_score: CareerDNA | null;
+}
+
+interface DiscoveryAssesmentProps extends PageProps {
+    discoveryAssessment?: DiscoveryAssesmentData | null;
+}
+
 export default function Discovery() {
     const [quizOpen, setQuizOpen] = useState(false);
-    const [dna, setDna] = useState<CareerDNA>({
+    const defaultDNA: CareerDNA = {
         logic: 30,
         empathy: 30,
         creativity: 30,
         leadership: 30,
         technical: 30,
         communication: 30
-    });
-    const [assessmentDone, setAssessmentDone] = useState(false);
-
-    const handleQuizComplete = (newDna: Record<string, number>) => {
-        setDna({
-            logic: newDna.logic ?? 30,
-            empathy: newDna.empathy ?? 30,
-            creativity: newDna.creativity ?? 30,
-            leadership: newDna.leadership ?? 30,
-            technical: newDna.technical ?? 30,
-            communication: newDna.communication ?? 30,
-        });
-        setAssessmentDone(true);
     };
+    const { discoveryAssessment } = usePage<DiscoveryAssesmentProps>().props;
+    const assessmentDone = discoveryAssessment?.skills_score != null;
+    const dna = discoveryAssessment?.skills_score ?? defaultDNA;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -81,7 +81,7 @@ export default function Discovery() {
                 </div>
 
                 {/* industries card */}
-                <IndustriesCard />
+                <IndustriesCard assessmentDone={assessmentDone} />
 
                 {/* skill gap */}
                 <SkillGap />
@@ -90,7 +90,6 @@ export default function Discovery() {
                 <DiscoveryAssessment
                     open={quizOpen}
                     onClose={() => setQuizOpen(false)}
-                    onComplete={handleQuizComplete}
                 />
             </div>
         </AppLayout>

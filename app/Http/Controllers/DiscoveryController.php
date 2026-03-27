@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DiscoveryAssessmentService;
 use Illuminate\Support\Facades\Auth;
 use App\Services\AI\GeminiService;
 use Illuminate\Http\Request;
@@ -13,26 +14,26 @@ use App\Models\Discovery\DiscoveryCareerRoadmap;
 class DiscoveryController extends Controller
 {
     public function index() {
-        return inertia::render(
-            'discovery'
-        );
+        $user = Auth::user();
+        $discoveryAssessment = DiscoveryAssesment::where('user_id', $user->id)->first();
+
+        return inertia::render('discovery', [
+            'discoveryAssessment' => $discoveryAssessment,
+        ]);
     }
 
-    public function discoveryAssesment(Request $request, GeminiService $gemini) {
+    public function discoveryAssesment(Request $request, GeminiService $gemini, DiscoveryAssessmentService $assessmentService) {
         $request->validate([
-            'dna.logic' => 'required|integer|min:0|max:100',
-            'dna.empathy' => 'required|integer|min:0|max:100',
-            'dna.creativity' => 'required|integer|min:0|max:100',
-            'dna.leadership' => 'required|integer|min:0|max:100',
-            'dna.technical' => 'required|integer|min:0|max:100',
-            'dna.communication' => 'required|integer|min:0|max:100',
+            'answers' => 'required|array',
+            'answers.*' => 'integer|min:0|max:3',
         ]);
 
-
         $user = Auth::user();
-        $dna = $request->dna;
+        $dna = $assessmentService->calculateDNA($request->answers);
 
-        // dd($dna);
+        if (count($request->answers) !== count(config('discovery_assessment.questions'))) {
+            abort(422, 'Invalid assessment submission.');
+        }
 
         $assessment = DiscoveryAssesment::updateOrCreate(
             ['user_id' => $user->id],
@@ -54,7 +55,7 @@ class DiscoveryController extends Controller
             'values_result' => $result['values_result'] ?? null,
         ]);
 
-         DiscoveryCareerRoadmap::updateOrCreate(
+        DiscoveryCareerRoadmap::updateOrCreate(
             ['user_id' => $user->id],
             [
                 'recommended_careers' => $result['recommended_careers'] ?? [],
@@ -99,6 +100,8 @@ class DiscoveryController extends Controller
                         - Values result is principles that are considered important by users.
                         - Roadmap Summary is reccommended user's learning roadmap summary.
                         - Identify user's personality based on DNA SCORES.
+                        - If the recommendation has points, just give 3 recommendations.
+                        - Dont give a description if the recommendation point-shaped
 
                         OUTPUT FORMAT:
 

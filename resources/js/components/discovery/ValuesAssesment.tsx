@@ -1,5 +1,7 @@
 import { motion } from "framer-motion"
-import { Star, ArrowRight } from "lucide-react";
+import { Star, ArrowRight, BotMessageSquare } from "lucide-react";
+
+import { chat } from "@/routes";
 
 interface ValuesAssesmentProps {
     onStartAssessment: () => void;
@@ -21,20 +23,39 @@ export default function ValuesAssesment({
                 Values Assessment
             </h2>
             {assessmentDone ? (
-                <div className="rounded-xl bg-emerald-50 border dark:bg-emerald-700 border-emerald-100 dark:border-emerald-600 px-6 py-6 flex flex-col items-center text-center gap-1">
-                    <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-300 font-medium">
-                        <span className="text-lg">✅</span>
-                        <span>Assessment Complete!</span>
+                <div className="flex flex-col gap-4">
+                    <div className="rounded-xl bg-emerald-50 border dark:bg-emerald-700 border-emerald-100 dark:border-emerald-600 px-6 py-6 flex flex-col items-center text-center gap-1">
+                        <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-300 font-medium">
+                            <span className="text-lg">✅</span>
+                            <span>Assessment Complete!</span>
+                        </div>
+                        <p className="text-sm text-muted-foreground dark:text-white">
+                            Your Career DNA has been updated
+                        </p>
+                        <button
+                            onClick={onStartAssessment}
+                            className="mt-4 text-base font-medium dark:font-bold text-purple-500 dark:text-purple-400 hover:text-purple-600 dark:hover:text-purple-500 transition hover:cursor-pointer"
+                        >
+                            Retake Assessment
+                        </button>
                     </div>
-                    <p className="text-sm text-muted-foreground dark:text-white">
-                        Your Career DNA has been updated
-                    </p>
-                    <button
-                        onClick={onStartAssessment}
-                        className="mt-4 text-base font-medium dark:font-bold text-purple-500 dark:text-purple-400 hover:text-purple-600 dark:hover:text-purple-500 transition"
-                    >
-                        Retake Assessment
-                    </button>
+                    <div className="rounded-xl border bg-card px-6 py-6 flex flex-col gap-3">
+                        <div className="flex items-center gap-2 font-semibold text-base">
+                            <BotMessageSquare className="h-5 w-5" />
+                            Continue with AI Career Coach
+                        </div>
+                        <p className="text-sm text-muted-foreground">
+                            Get deeper insights about your strengths, career direction,
+                            and personalized recommendations through an AI consultation.
+                        </p>
+                        <a
+                            href={chat().url}
+                            className="mt-2 inline-flex items-center justify-center gap-2 py-3 rounded-xl gradient-primary text-secondary-foreground font-semibold text-sm hover:border-primary/40 hover:bg-accent/30 transition-colors border"
+                        >
+                            Talk with AI
+                            <ArrowRight className="w-4 h-4" />
+                        </a>
+                    </div>
                 </div>
             ) : (
                 <div className="flex flex-col gap-2">

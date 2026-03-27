@@ -9,9 +9,13 @@ import {
     Lock
 } from "lucide-react";
 
-import { useAuth } from "@/hooks/use-auth";
+interface IndustriesCardProps {
+    assessmentDone?: boolean;
+}
 
-export default function IndustriesCard() {
+export default function IndustriesCard({
+    assessmentDone = false,
+}: IndustriesCardProps) {
     const industries = [
         { name: "Creative Technology", growth: "High", icon: Palette, match: 82 },
         { name: "Biotech & Health", growth: "Very High", icon: Brain, match: 76 },
@@ -20,10 +24,6 @@ export default function IndustriesCard() {
         { name: "Engineering", growth: "High", icon: Wrench, match: 73 },
         { name: "Education Tech", growth: "Very High", icon: Users, match: 91 },
     ];
-
-    const { user } = useAuth();
-    // true temporary
-    const assessmentDone = user?.assessment_completed ?? true;
 
     return (
         <motion.div

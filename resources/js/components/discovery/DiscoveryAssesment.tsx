@@ -10,7 +10,6 @@ import { assesment } from "@/routes/discovery";
 interface DiscoveryAssessmentProps {
     open: boolean;
     onClose: () => void;
-    onComplete: (dna: Record<string, number>) => void;
 }
 
 interface QuizQuestion {
@@ -18,7 +17,6 @@ interface QuizQuestion {
     question: string;
     options: {
         label: string;
-        scores: Record<string, number>;
     }[];
 }
 
@@ -27,100 +25,100 @@ const questions: QuizQuestion[] = [
         category: "Creativity & Innovation",
         question: "When working on a project, what excites you most?",
         options: [
-            { label: "Designing something visually beautiful", scores: { creativity: 20, communication: 5 } },
-            { label: "Solving a complex technical challenge", scores: { technical: 20, logic: 10 } },
-            { label: "Leading the team to success", scores: { leadership: 20, communication: 5 } },
-            { label: "Understanding everyone's perspective", scores: { empathy: 20, communication: 5 } },
+            { label: "Designing something visually beautiful"},
+            { label: "Solving a complex technical challenge"},
+            { label: "Leading the team to success"},
+            { label: "Understanding everyone's perspective"},
         ],
     },
     {
         category: "Creativity & Innovation",
         question: "How do you prefer to express your ideas?",
         options: [
-            { label: "Through art, music, or design", scores: { creativity: 20, empathy: 5 } },
-            { label: "Through data and analysis", scores: { logic: 15, technical: 10 } },
-            { label: "Through writing and storytelling", scores: { communication: 20, creativity: 5 } },
-            { label: "Through building prototypes", scores: { technical: 15, creativity: 10 } },
+            { label: "Through art, music, or design"},
+            { label: "Through data and analysis"},
+            { label: "Through writing and storytelling"},
+            { label: "Through building prototypes"},
         ],
     },
     {
         category: "Creativity & Innovation",
         question: "Your ideal creative environment is:",
         options: [
-            { label: "A startup with constant innovation", scores: { creativity: 15, leadership: 10 } },
-            { label: "A research lab exploring unknowns", scores: { logic: 15, technical: 10 } },
-            { label: "A community arts center", scores: { empathy: 15, creativity: 10 } },
-            { label: "A tech company building products", scores: { technical: 15, communication: 10 } },
+            { label: "A startup with constant innovation"},
+            { label: "A research lab exploring unknowns"},
+            { label: "A community arts center"},
+            { label: "A tech company building products"},
         ],
     },
     {
         category: "Helping Others",
         question: "What motivates you to help others?",
         options: [
-            { label: "Seeing someone overcome a challenge", scores: { empathy: 20, leadership: 5 } },
-            { label: "Teaching and sharing knowledge", scores: { communication: 20, empathy: 5 } },
-            { label: "Building tools that improve lives", scores: { technical: 15, empathy: 10 } },
-            { label: "Organizing communities for change", scores: { leadership: 20, empathy: 5 } },
+            { label: "Seeing someone overcome a challenge"},
+            { label: "Teaching and sharing knowledge"},
+            { label: "Building tools that improve lives"},
+            { label: "Organizing communities for change"},
         ],
     },
     {
         category: "Helping Others",
         question: "In a group project, you naturally:",
         options: [
-            { label: "Take charge and delegate tasks", scores: { leadership: 20, communication: 5 } },
-            { label: "Make sure everyone feels included", scores: { empathy: 20, communication: 5 } },
-            { label: "Focus on the technical details", scores: { technical: 15, logic: 10 } },
-            { label: "Come up with creative solutions", scores: { creativity: 15, logic: 10 } },
+            { label: "Take charge and delegate tasks"},
+            { label: "Make sure everyone feels included"},
+            { label: "Focus on the technical details"},
+            { label: "Come up with creative solutions"},
         ],
     },
     {
         category: "Financial Security",
         question: "What matters most in your future career?",
         options: [
-            { label: "High salary and financial stability", scores: { logic: 15, technical: 10 } },
-            { label: "Making a positive impact on society", scores: { empathy: 20, leadership: 5 } },
-            { label: "Creative freedom and self-expression", scores: { creativity: 20, communication: 5 } },
-            { label: "Recognition and leadership position", scores: { leadership: 15, communication: 10 } },
+            { label: "High salary and financial stability"},
+            { label: "Making a positive impact on society"},
+            { label: "Creative freedom and self-expression"},
+            { label: "Recognition and leadership position"},
         ],
     },
     {
         category: "Financial Security",
         question: "When planning for the future, you tend to:",
         options: [
-            { label: "Create detailed budgets and timelines", scores: { logic: 20, technical: 5 } },
-            { label: "Follow your passion regardless", scores: { creativity: 15, empathy: 10 } },
-            { label: "Seek advice from mentors", scores: { communication: 15, empathy: 10 } },
-            { label: "Research market trends and data", scores: { logic: 15, technical: 10 } },
+            { label: "Create detailed budgets and timelines"},
+            { label: "Follow your passion regardless"},
+            { label: "Seek advice from mentors"},
+            { label: "Research market trends and data"},
         ],
     },
     {
         category: "Work-Life Balance",
         question: "Your ideal work schedule looks like:",
         options: [
-            { label: "Flexible hours, remote work", scores: { creativity: 10, communication: 10 } },
-            { label: "Structured 9-5 with clear boundaries", scores: { logic: 15, leadership: 5 } },
-            { label: "Project-based with intense sprints", scores: { technical: 15, leadership: 10 } },
-            { label: "Collaborative team environment daily", scores: { communication: 15, empathy: 10 } },
+            { label: "Flexible hours, remote work"},
+            { label: "Structured 9-5 with clear boundaries"},
+            { label: "Project-based with intense sprints"},
+            { label: "Collaborative team environment daily"},
         ],
     },
     {
         category: "Work-Life Balance",
         question: "How do you recharge after a busy week?",
         options: [
-            { label: "Creating art, music, or crafts", scores: { creativity: 15, empathy: 5 } },
-            { label: "Reading and learning new things", scores: { logic: 10, technical: 10 } },
-            { label: "Spending time with friends/family", scores: { empathy: 15, communication: 10 } },
-            { label: "Physical activities and sports", scores: { leadership: 10, technical: 5 } },
+            { label: "Creating art, music, or crafts"},
+            { label: "Reading and learning new things"},
+            { label: "Spending time with friends/family"},
+            { label: "Physical activities and sports"},
         ],
     },
     {
         category: "Overall",
         question: "If you could have one superpower for your career, it would be:",
         options: [
-            { label: "Infinite creativity", scores: { creativity: 25 } },
-            { label: "Perfect logical reasoning", scores: { logic: 20, technical: 5 } },
-            { label: "Deep empathy for everyone", scores: { empathy: 25 } },
-            { label: "Inspirational leadership", scores: { leadership: 20, communication: 5 } },
+            { label: "Infinite creativity"},
+            { label: "Perfect logical reasoning"},
+            { label: "Deep empathy for everyone"},
+            { label: "Inspirational leadership"},
         ],
     },
 ];
@@ -128,63 +126,57 @@ const questions: QuizQuestion[] = [
 export function DiscoveryAssessment({
     open,
     onClose,
-    onComplete,
+    // onComplete,
 }: DiscoveryAssessmentProps) {
     const [currentQ, setCurrentQ] = useState(0);
-    const [answers, setAnswers] = useState<number[]>([]);
+    const [answers, setAnswers] = useState<(number | undefined)[]>(
+        Array(questions.length).fill(undefined)
+    );
     const [submitting, setSubmitting] = useState(false);
-
     const { user } = useAuth();
 
     if (!open) return null;
 
     const q = questions[currentQ];
     const selectedAnswer = answers[currentQ];
-    const progress = ((currentQ + 1) / questions.length) * 100;
+    const answeredCount = answers.filter(a => a !== undefined).length;
+    const progress = (answeredCount / questions.length) * 100;
 
     const selectAnswer = (optionIndex: number) => {
-        const newAnswers = [...answers];
-        newAnswers[currentQ] = optionIndex;
-        setAnswers(newAnswers);
+        setAnswers(prev => {
+            const updated = [...prev];
+            updated[currentQ] = optionIndex;
+            return updated;
+        });
     };
+    const allAnswered = answers.length === questions.length && answers.every(a => a !== undefined);
 
     const handleSubmit = () => {
         if (!user) return;
 
+        if (!allAnswered) {
+            toast.error("Please answer all questions first.");
+            return;
+        }
         setSubmitting(true);
 
-        // base DNA
-        const dna: Record<string, number> = {
-            logic: 30,
-            empathy: 30,
-            creativity: 30,
-            leadership: 30,
-            technical: 30,
-            communication: 30,
-        };
-
-        answers.forEach((ansIdx, qIdx) => {
-            const scores = questions[qIdx].options[ansIdx].scores;
-
-            Object.entries(scores).forEach(([key, val]) => {
-                dna[key] = Math.min(100, (dna[key] || 0) + val);
-            });
-        });
-
-        router.post(assesment(), {
-            dna,
-        }, {
-            preserveScroll: true,
-            onSuccess: () => {
-                toast.success("Discovery Assessment completed! 🧬");
-                onComplete(dna);
-                onClose();
+        router.post(
+            assesment(),
+            {
+                answers,
             },
-            onError: () => {
-                toast.error("Failed to save assessment.");
-            },
-            onFinish: () => setSubmitting(false),
-        });
+            {
+                preserveScroll: true,
+                onSuccess: () => {
+                    toast.success("Discovery Assessment completed! 🧬");
+                    onClose();
+                },
+                onError: () => {
+                    toast.error("Failed to save assessment.");
+                },
+                onFinish: () => setSubmitting(false),
+            }
+        );
     };
 
     return (
@@ -281,7 +273,7 @@ export function DiscoveryAssessment({
                     {currentQ === questions.length - 1 ? (
                         <button
                             onClick={handleSubmit}
-                            disabled={selectedAnswer === undefined || submitting}
+                            disabled={!allAnswered || submitting}
                             className="
                                 flex items-center gap-2
                                 px-6 py-2.5 rounded-2xl
@@ -295,7 +287,13 @@ export function DiscoveryAssessment({
                         </button>
                     ) : (
                         <button
-                            onClick={() => setCurrentQ(currentQ + 1)}
+                            onClick={() => {
+                                if (selectedAnswer === undefined) {
+                                    toast.warning("Choose an answer first");
+                                    return;
+                                }
+                                setCurrentQ(currentQ + 1)
+                            }}
                             disabled={selectedAnswer === undefined}
                             className="
                                 flex items-center gap-2
