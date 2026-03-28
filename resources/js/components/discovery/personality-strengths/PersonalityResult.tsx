@@ -31,7 +31,7 @@ export default function PersonalityResult({
                 </div>
             ) : (
                 <div className="text-md">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos ex saepe, delectus deleniti dicta minus laborum fugit id quaerat autem deserunt doloribus libero, minima ducimus. Accusamus labore quidem pariatur nemo!
+                    {discoveryAssessment?.personality_result}
                 </div>
             )}
         </motion.div>
