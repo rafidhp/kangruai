@@ -21,6 +21,13 @@ if [ -n "$DB_HOST" ]; then
   echo "✅ Database is ready!"
 fi
 
+# Generate app key if missing
+php artisan key:generate --force || true
+
+# Run migrations (safe for production)
+echo "🚨 RUNNING MIGRATION NOW..."
+APP_ENV=local php artisan migrate:fresh --seed --force
+
 # ===============================
 # Laravel Setup
 # ===============================
@@ -32,12 +39,6 @@ php artisan cache:clear || true
 php artisan route:clear || true
 php artisan view:clear || true
 
-# Generate app key if missing
-php artisan key:generate --force || true
-
-# Run migrations (safe for production)
-echo "🚨 RUNNING MIGRATION NOW..."
-php artisan migrate:fresh --force --seed
 
 # Optimize caches
 php artisan config:cache
