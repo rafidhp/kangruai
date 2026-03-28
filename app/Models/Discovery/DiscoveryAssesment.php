@@ -13,10 +13,12 @@ class DiscoveryAssesment extends Model
         'user_id',
         'personality_result',
         'strengths_result',
-        'values_result',
+        'industries_matches',
+        'motivation_words',
         'skills_score',
     ];
     protected $casts = [
+        'industries_matches' => 'array',
         'skills_score' => 'array',
     ];
 

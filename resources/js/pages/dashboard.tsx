@@ -1,4 +1,5 @@
-import { Head } from "@inertiajs/react";
+import type { PageProps } from "@inertiajs/core";
+import { Head, usePage } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import { GraduationCap, Target } from "lucide-react";
 
@@ -19,13 +20,32 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ]
 
+interface CareerDNA {
+    logic: number;
+    empathy: number;
+    creativity: number;
+    leadership: number;
+    technical: number;
+    communication: number;
+}
+
+interface discoveryAssessment {
+    motivation_words: string;
+    skills_score: CareerDNA | null;
+}
+
+interface DashboardProps extends PageProps {
+    discoveryAssessment: discoveryAssessment | null;
+}
+
 export default function Dashboard() {
     const { user } = useAuth();
     const clarityScore = 35;
 
     const userName = user?.name || "Student";
     const schoolName = user?.school || "Your School";
-    const assessmentDone = user?.assessment_completed ?? false;
+    const { discoveryAssessment } = usePage<DashboardProps>().props;
+    const assessmentDone = discoveryAssessment?.skills_score != null;
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -74,7 +94,7 @@ export default function Dashboard() {
 
                     {/* Reflection + Roadmap */}
                     <div className="lg:col-span-2 space-y-6">
-                        <AIReflectionCard />
+                        <AIReflectionCard discoveryAssessment={discoveryAssessment} />
 
                         <motion.div
                             initial={{ opacity: 0, y: 10 }}

@@ -11,7 +11,7 @@ export function AppContent({ variant = 'header', children, ...props }: Props) {
     if (variant === 'sidebar') {
         return (
             <>
-                <SidebarInset {...props}>{children}</SidebarInset>;
+                <SidebarInset {...props}>{children}</SidebarInset>
                  
                 <Toaster
                     theme="system"

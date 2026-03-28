@@ -1,8 +1,10 @@
+import { router } from "@inertiajs/react";
 import axios from "axios";
 import { Send, Bot, User } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 
 import { useAuth } from "@/hooks/use-auth";
@@ -139,8 +141,28 @@ export default function ChatBox() {
                                 <div className="prose prose-sm dark:prose-invert max-w-none break-words">
                                     <ReactMarkdown
                                         remarkPlugins={[remarkGfm]}
-                                        rehypePlugins={[rehypeHighlight]}
+                                        rehypePlugins={[rehypeRaw, rehypeHighlight]}
                                         components={{
+                                            a({ href, children }) {
+                                                if (!href) return <span>{children}</span>;
+                                                const isInternal = href?.startsWith("/");
+                                                
+                                                if (isInternal) {
+                                                    return (
+                                                        <button
+                                                            onClick={() => router.visit(href)}
+                                                            className="text-primary underline font-medium hover:opacity-80"
+                                                        >
+                                                            {children}
+                                                        </button>
+                                                    );
+                                                }
+                                                return (
+                                                    <a href={href} target="_blank" rel="noopener noreferrer">
+                                                        {children}
+                                                    </a>
+                                                );
+                                            },
                                             code({ children }) {
                                                 return (
                                                     <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-3 text-xs">

@@ -1,9 +1,22 @@
+import { Link } from "@inertiajs/react";
 import { motion } from "framer-motion";
 import { Brain } from "lucide-react";
 
-export function AIReflectionCard() {
-    const message =
-        "If you could solve one real-world problem with technology, what would it be and why? Think about the skills you'd need to learn.";
+import { discovery } from "@/routes";
+
+interface discoveryAssessment {
+    motivation_words: string;
+}
+
+interface AIReflectionCardProps {
+    discoveryAssessment: discoveryAssessment | null;
+}
+
+export function AIReflectionCard({
+    discoveryAssessment,
+}: AIReflectionCardProps) {
+    const message = discoveryAssessment?.motivation_words;
+    const hasMessage = message && message.trim().length > 0;
 
     return (
         <motion.div
@@ -14,23 +27,29 @@ export function AIReflectionCard() {
         >
             {/* icon */}
             <div className="flex items-center justify-center w-10 h-10 rounded-full
-                dark:bg-gray-100 bg-white">
+                dark:bg-gray-100 bg-white px-2">
                 <Brain className="w-5 h-5 text-gray-900" />
             </div>
 
             {/* content */}
             <div className="flex flex-col gap-1">
-                <div className="flex flex-col">
-                    <span className="font-semibold dark:text-gray-100 text-gray-900">
-                        AI Reflection
-                    </span>
-                    <span className="text-sm dark:text-gray-200 text-gray-700">
-                        Daily prompt from your mentor
-                    </span>
-                </div>
-                <p className="dark:text-gray-100 text-gray-900 italic mt-2 leading-relaxed">
-                    "{message}"
-                </p>
+                {hasMessage ? (
+                    <p className="dark:text-gray-100 text-gray-900 italic mt-2 leading-relaxed">
+                        "{message}"
+                    </p>
+                ) : (
+                    <p className="dark:text-gray-100 text-gray-900 mt-2 leading-relaxed">
+                        Your personalized reflection is waiting to be unlocked.
+                        Complete your discovery assessment to receive daily AI
+                        guidance tailored to your goals and potential.{" "}
+                        <Link
+                            href={discovery().url}
+                            className="font-semibold text-violet-400 hover:underline"
+                        >
+                            Click here to start your assessment →
+                        </Link>
+                    </p>
+                )}
             </div>
         </motion.div>
     );

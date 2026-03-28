@@ -16,7 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->text('personality_result')->nullable();
             $table->text('strengths_result')->nullable();
-            $table->text('values_result')->nullable();
+            $table->json('industries_matches')->nullable();
+            $table->text('motivation_words')->nullable();
             $table->json('skills_score');
             $table->timestamps();
         });

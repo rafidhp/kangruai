@@ -33,8 +33,15 @@ interface DiscoveryAssesmentData {
     skills_score: CareerDNA | null;
 }
 
+interface Industry {
+    name: string;
+    match: number;
+    growth: string;
+}
+
 interface DiscoveryAssesmentProps extends PageProps {
     discoveryAssessment?: DiscoveryAssesmentData | null;
+    industries: Industry[];
 }
 
 export default function Discovery() {
@@ -47,7 +54,7 @@ export default function Discovery() {
         technical: 30,
         communication: 30
     };
-    const { discoveryAssessment } = usePage<DiscoveryAssesmentProps>().props;
+    const { discoveryAssessment, industries } = usePage<DiscoveryAssesmentProps>().props;
     const assessmentDone = discoveryAssessment?.skills_score != null;
     const dna = discoveryAssessment?.skills_score ?? defaultDNA;
 
@@ -81,7 +88,7 @@ export default function Discovery() {
                 </div>
 
                 {/* industries card */}
-                <IndustriesCard assessmentDone={assessmentDone} />
+                <IndustriesCard industries={industries} />
 
                 {/* skill gap */}
                 <SkillGap />
