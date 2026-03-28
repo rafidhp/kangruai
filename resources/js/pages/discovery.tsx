@@ -7,6 +7,7 @@ import { useState } from "react";
 import CareerChart from "@/components/discovery/CareerChart";
 import { DiscoveryAssessment } from "@/components/discovery/DiscoveryAssesment";
 import IndustriesCard from "@/components/discovery/IndustriesCard";
+import PersonalityStrengthsResult from "@/components/discovery/PersonalityStrengthsResult";
 import SkillGap from "@/components/discovery/SkillGap";
 import ValuesAssesment from "@/components/discovery/ValuesAssesment";
 import AppLayout from '@/layouts/app-layout';
@@ -30,6 +31,8 @@ interface CareerDNA {
 }
 
 interface DiscoveryAssesmentData {
+    personality_result: string;
+    strengths_result: string;
     skills_score: CareerDNA | null;
 }
 
@@ -40,7 +43,7 @@ interface Industry {
 }
 
 interface DiscoveryAssesmentProps extends PageProps {
-    discoveryAssessment?: DiscoveryAssesmentData | null;
+    discoveryAssessment: DiscoveryAssesmentData | null;
     industries: Industry[];
 }
 
@@ -86,6 +89,9 @@ export default function Discovery() {
                     {/* career dna */}
                     <CareerChart dna={dna} />
                 </div>
+
+                {/* personality and strengths result */}
+                <PersonalityStrengthsResult discoveryAssessment={discoveryAssessment} />
 
                 {/* industries card */}
                 <IndustriesCard industries={industries} />
