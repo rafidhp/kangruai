@@ -14,9 +14,32 @@ use App\Models\Discovery\DiscoveryAssesment;
 class ChatController extends Controller
 {
     public function index() {
-        return inertia::render(
-            'chat'
-        );
+        $user = Auth::user();
+        $userConversation = ChatConversation::where('user_id', $user->id)
+                            ->where('is_active', true)
+                            ->first();
+        $userChat = [];
+        if ($userConversation) {
+            $userChat = ChatMessage::where(
+                'conversation_id',
+                $userConversation->id
+            )
+            ->orderBy('created_at')
+            ->get();
+        }
+
+        $userChat = collect($userChat)->map(function ($chat) {
+            return [
+                'sender' => strtolower($chat->sender) === 'user'
+                    ? 'user'
+                    : 'ai',
+                'text' => $chat->message,
+            ];
+        });
+
+        return inertia('chat', [
+            'userChat' => $userChat->values(),
+        ]);
     }
 
     public function send(Request $request, GeminiService $gemini) {

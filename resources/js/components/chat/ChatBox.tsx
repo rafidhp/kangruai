@@ -1,4 +1,4 @@
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import axios from "axios";
 import { Send, Bot, User } from 'lucide-react';
 import { useState, useRef, useEffect } from "react";
@@ -14,7 +14,12 @@ type ChatMessage = {
     text: string;
 };
 
+type PageProps = {
+    userChat: ChatMessage[];
+}
+
 export default function ChatBox() {
+    const { props } = usePage<PageProps>();
     const suggestions = [
         "Parent Talk Guide",
         "IPA vs IPS",
@@ -23,7 +28,9 @@ export default function ChatBox() {
     ];
 
     const [message, setMessage] = useState<string>("");
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>(
+        props.userChat ?? []
+    );
     const [loading, setLoading] = useState<boolean>(false);
     const bottomRef = useRef<HTMLDivElement | null>(null);
     const { user } = useAuth();
@@ -81,6 +88,10 @@ export default function ChatBox() {
             sendMessage();
         }
     };
+
+    useEffect(() => {
+        setMessages(props.userChat ?? []);
+    }, [props.userChat]);
 
     return (
         <div className="flex flex-col h-full rounded-2xl border bg-background overflow-hidden">
@@ -146,7 +157,7 @@ export default function ChatBox() {
                                             a({ href, children }) {
                                                 if (!href) return <span>{children}</span>;
                                                 const isInternal = href?.startsWith("/");
-                                                
+
                                                 if (isInternal) {
                                                     return (
                                                         <button
