@@ -34,9 +34,12 @@ export function AIReflectionCard({
             {/* content */}
             <div className="flex flex-col gap-1">
                 {hasMessage ? (
-                    <p className="dark:text-gray-100 text-gray-900 italic mt-2 leading-relaxed">
-                        "{message}"
-                    </p>
+                    <div>
+                        <h2 className="font-bold">Motivation Words</h2>
+                        <p className="dark:text-gray-100 text-gray-900 italic mt-2 leading-relaxed">
+                            "{message}"
+                        </p>
+                    </div>
                 ) : (
                     <p className="dark:text-gray-100 text-gray-900 mt-2 leading-relaxed">
                         Your personalized reflection is waiting to be unlocked.

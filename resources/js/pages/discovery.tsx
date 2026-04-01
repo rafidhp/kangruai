@@ -8,7 +8,9 @@ import CareerChart from "@/components/discovery/CareerChart";
 import { DiscoveryAssessment } from "@/components/discovery/DiscoveryAssesment";
 import IndustriesCard from "@/components/discovery/IndustriesCard";
 import PersonalityStrengthsResult from "@/components/discovery/PersonalityStrengthsResult";
-import SkillGap from "@/components/discovery/SkillGap";
+import RecommendedSectionIndex from "@/components/discovery/recommended-section/RecommendedSectionIndex";
+// TODO: sync with user progress
+// import SkillGap from "@/components/discovery/SkillGap";
 import ValuesAssesment from "@/components/discovery/ValuesAssesment";
 import AppLayout from '@/layouts/app-layout';
 import { discovery } from "@/routes";
@@ -42,9 +44,16 @@ interface Industry {
     growth: string;
 }
 
+interface DiscoveryCareer {
+    recommendedCareers: [];
+    recommendedMajors: [];
+    roadmapSummary: string;
+}
+
 interface DiscoveryAssesmentProps extends PageProps {
     discoveryAssessment: DiscoveryAssesmentData | null;
     industries: Industry[];
+    discoveryCareer: DiscoveryCareer | null;
 }
 
 export default function Discovery() {
@@ -57,7 +66,7 @@ export default function Discovery() {
         technical: 30,
         communication: 30
     };
-    const { discoveryAssessment, industries } = usePage<DiscoveryAssesmentProps>().props;
+    const { discoveryAssessment, industries, discoveryCareer } = usePage<DiscoveryAssesmentProps>().props;
     const assessmentDone = discoveryAssessment?.skills_score != null;
     const dna = discoveryAssessment?.skills_score ?? defaultDNA;
 
@@ -96,8 +105,11 @@ export default function Discovery() {
                 {/* industries card */}
                 <IndustriesCard industries={industries} />
 
-                {/* skill gap */}
-                <SkillGap />
+                {/* skill gap, on develop */}
+                {/* <SkillGap /> */}
+
+                {/* TODO: add recommendation careers and majors  */}
+                <RecommendedSectionIndex discoveryCareer={discoveryCareer} />
 
                 {/* discovery assesment */}
                 <DiscoveryAssessment

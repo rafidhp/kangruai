@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Adaptation\AdaptationActiveRoadmap;
 use App\Models\Adaptation\AdaptationRoadmapUpdate;
+use App\Models\Adaptation\AdaptationExperienceRecommendation;
 
 class DiscoveryCareerRoadmap extends Model
 {
@@ -32,5 +33,9 @@ class DiscoveryCareerRoadmap extends Model
 
     public function adaptationActiveRoadmap() {
         return $this->hasMany(AdaptationActiveRoadmap::class, 'career_roadmap_id');
+    }
+
+    public function adaptationExperienceRecommendation() {
+        return $this->hasMany(AdaptationExperienceRecommendation::class, 'active_roadmap_id');
     }
 }

@@ -16,10 +16,12 @@ class DiscoveryController extends Controller
     public function index() {
         $user = Auth::user();
         $discoveryAssessment = DiscoveryAssesment::where('user_id', $user->id)->first();
+        $discoveryCareer = DiscoveryCareerRoadmap::where('user_id', $user->id)->first();
 
         return inertia::render('discovery', [
             'discoveryAssessment' => $discoveryAssessment,
             'industries' => $discoveryAssessment?->industries_matches ?? [],
+            'discoveryCareer' => $discoveryCareer,
         ]);
     }
 
@@ -69,7 +71,7 @@ class DiscoveryController extends Controller
             ]
         );
 
-        return back()->with('success', true);
+        return back()->with('success', 'Discovery Assessment completed! 🧬');
     }
 
     private function buildDiscoveryPrompt(array $dna) {
@@ -132,7 +134,7 @@ class DiscoveryController extends Controller
                         - Strengths result is user core strengths analysis.
                         - Roadmap Summary is reccommended user's learning roadmap summary.
                         - Identify all user's personality based on DNA SCORES.
-                        - If the recommendation has points, just give 3 recommendations.
+                        - If the recommendation has points, just give 3 recommendations and dont give or (/) and additional description in the point.
                         - Dont give a description if the recommendation point-shaped
 
                         OUTPUT FORMAT:

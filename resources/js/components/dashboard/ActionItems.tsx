@@ -20,9 +20,9 @@ const iconMap: Record<string, any> = {
 };
 
 const recommended = [
-    { title: "Design Thinking 101", category: "Course", duration: "12 min", icon: Lightbulb },
-    { title: "A Day in Biotech", category: "Video", duration: "8 min", icon: Briefcase },
-    { title: "Creative Coding", category: "Workshop", duration: "45 min", icon: BookOpen },
+    { title: "Design Thinking 101", category: "Course", duration: "4 min", icon: Lightbulb, link: "https://www.youtube.com/watch?v=6lmvCqvmjfE" },
+    { title: "Learn Web Development", category: "Video", duration: "12 min", icon: Briefcase, link: "https://www.youtube.com/watch?v=ysEN5RaKOlA&t=50s" },
+    { title: "Creative Coding", category: "Workshop", duration: "300 min", icon: BookOpen, link: "https://www.youtube.com/watch?v=4JzDttgdILQ" },
 ];
 
 interface ActionItem {
@@ -153,27 +153,29 @@ export function ActionItems() {
                                 hover:shadow-md
                             "
                         >
-                            <div
-                                className="
-                                w-10 h-10 rounded-2xl flex items-center justify-center mb-3
-                                dark:bg-gray-100 bg-white
-                                "
-                            >
-                                <item.icon className="w-5 h-5 text-[#8b5cf6]" />
-                            </div>
+                            <a href={item.link} target="_blank">
+                                <div
+                                    className="
+                                    w-10 h-10 rounded-2xl flex items-center justify-center mb-3
+                                    dark:bg-gray-100 bg-white
+                                    "
+                                >
+                                    <item.icon className="w-5 h-5 text-[#8b5cf6]" />
+                                </div>
 
-                            <p className="text-sm font-semibold dark:text-gray-100 text-gray-900">
-                                {item.title}
-                            </p>
+                                <p className="text-sm font-semibold dark:text-gray-100 text-gray-900">
+                                    {item.title}
+                                </p>
 
-                            <div className="flex items-center gap-2 mt-2">
-                                <span className="text-[10px] uppercase tracking-wider font-semibold text-[#8b5cf6] dark:text-violet-300">
-                                    {item.category}
-                                </span>
-                                <span className="text-[10px] dark:text-gray-400 text-gray-600">
-                                    • {item.duration}
-                                </span>
-                            </div>
+                                <div className="flex items-center gap-2 mt-2">
+                                    <span className="text-[10px] uppercase tracking-wider font-semibold text-[#8b5cf6] dark:text-violet-300">
+                                        {item.category}
+                                    </span>
+                                    <span className="text-[10px] dark:text-gray-400 text-gray-600">
+                                        • {item.duration}
+                                    </span>
+                                </div>
+                            </a>
                         </motion.div>
                     ))}
                 </div>

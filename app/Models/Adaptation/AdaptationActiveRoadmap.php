@@ -2,7 +2,7 @@
 
 namespace App\Models\Adaptation;
 
-use App\Models\DiscoveryCareerRoadmap;
+use App\Models\Discovery\DiscoveryCareerRoadmap;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
@@ -26,9 +26,5 @@ class AdaptationActiveRoadmap extends Model
 
     public function roadmapUpdate() {
         return $this->belongsTo(AdaptationRoadmapUpdate::class, 'roadmap_update_id');
-    }
-
-    public function adaptationExperienceRecommendation() {
-        return $this->hasMany(AdaptationExperienceRecommendation::class, 'active_roadmap_id');
     }
 }

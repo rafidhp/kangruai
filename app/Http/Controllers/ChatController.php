@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adaptation\AdaptationExperienceRecommendation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -54,6 +55,7 @@ class ChatController extends Controller
         $conversation = ChatConversation::where('user_id', $user->id)
             ->where('is_active', true)
             ->first();
+        $adaptationExperience = AdaptationExperienceRecommendation::where('user_id', $user->id)->get();
 
         if ($assessmentCompleted) {
             $assessmentData = json_encode([
@@ -81,6 +83,9 @@ class ChatController extends Controller
 
             Discovery Assessment Data:
             {$assessmentData}
+
+            User Experience Data:
+            {$adaptationExperience}
 
             Rules:
             - Address the user by their name naturally when appropriate.

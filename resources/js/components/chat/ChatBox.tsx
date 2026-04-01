@@ -130,7 +130,7 @@ export default function ChatBox() {
                         }`}
                     >
                         {msg.sender === "ai" && (
-                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
+                            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white px-2">
                                 <Bot className="h-5 w-5 dark:text-black" />
                             </div>
                         )}

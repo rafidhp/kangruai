@@ -1,5 +1,6 @@
-import * as React from 'react';
-import { Toaster } from 'sonner';
+import { usePage } from '@inertiajs/react';
+import React, { useEffect, useRef } from 'react';
+import { Toaster, toast } from 'sonner';
 
 import { SidebarInset } from '@/components/ui/sidebar';
 
@@ -8,6 +9,24 @@ type Props = React.ComponentProps<'main'> & {
 };
 
 export function AppContent({ variant = 'header', children, ...props }: Props) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { flash } = usePage().props as any
+    const lastSuccess = useRef<string | null>(null);
+    const lastError = useRef<string | null>(null);
+    
+    useEffect(() => {
+        if (!flash) return;
+    
+        if (flash.success && flash.success !== lastSuccess.current) {
+            toast.success(flash.success);
+            lastSuccess.current = flash.success;
+        }
+        if (flash.error && flash.error !== lastError.current) {
+            toast.error(flash.error);
+            lastError.current = flash.error;
+        }
+    }, [flash]);
+
     if (variant === 'sidebar') {
         return (
             <>

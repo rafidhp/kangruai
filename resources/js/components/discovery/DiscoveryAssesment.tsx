@@ -126,7 +126,6 @@ const questions: QuizQuestion[] = [
 export function DiscoveryAssessment({
     open,
     onClose,
-    // onComplete,
 }: DiscoveryAssessmentProps) {
     const [currentQ, setCurrentQ] = useState(0);
     const [answers, setAnswers] = useState<(number | undefined)[]>(
@@ -168,7 +167,6 @@ export function DiscoveryAssessment({
             {
                 preserveScroll: true,
                 onSuccess: () => {
-                    toast.success("Discovery Assessment completed! 🧬");
                     onClose();
                 },
                 onError: () => {

@@ -34,7 +34,7 @@ return new class extends Migration
         Schema::create('adaptation_experience_recommendations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('active_roadmap_id')->constrained('adaptation_active_roadmaps')->onDelete('cascade');
+            $table->foreignId('active_roadmap_id')->constrained('discovery_career_roadmaps')->onDelete('cascade');
             $table->enum('experience_type', [
                 'INTERNSHIP',
                 'PROJECT',
@@ -44,7 +44,7 @@ return new class extends Migration
                 'OTHER'
             ]);
             $table->string('title');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->text('expected_outcome')->nullable();
             $table->enum('status', [
                 'RECOMMENDED',

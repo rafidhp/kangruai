@@ -38,6 +38,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // adaptation routes
     Route::controller(AdaptationController::class)->group(function () {
         Route::get('/adaptation', 'index')->name('adaptation');
+        Route::post('/adaptation/add-experience', 'addExperience')->name('adaptation.addExperience');
     });
 
     // bridge routes

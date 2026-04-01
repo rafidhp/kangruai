@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
+use App\Models\Discovery\DiscoveryAssesment;
+use App\Models\Discovery\DiscoveryCareerRoadmap;
 use App\Models\Adaptation\AdaptationRoadmapUpdate;
 use App\Models\Adaptation\AdaptationActiveRoadmap;
 use App\Models\Adaptation\AdaptationExperienceRecommendation;
